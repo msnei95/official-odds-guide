@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界杯赔率资料库 · 信息索引页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f2f4f6;
+            color: #1e2a3a;
+            line-height: 1.7;
+            padding: 2rem 1.2rem;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 标题区（柔和 hero） */
+        .hero {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.04);
+            border: 1px solid #e6e9ed;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+            color: #17232f;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .sub {
+            color: #546e7a;
+            font-size: 1.1rem;
+            max-width: 680px;
+            margin: 0.5rem auto 0;
+        }
+
+        .hero .divider {
+            width: 56px;
+            height: 3px;
+            background: #b0bec5;
+            margin: 1.2rem auto 1rem;
+            border-radius: 8px;
+        }
+
+        /* 网格目录感布局 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+        }
+
+        @media (min-width: 680px) {
+            .card-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1000px) {
+            .card-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 1.8rem 1.6rem;
+            border: 1px solid #e0e4e8;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.03);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0,20,40,0.04), 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 540;
+            color: #1d2a39;
+            border-bottom: 1px solid #edf0f3;
+            padding-bottom: 0.6rem;
+            margin-bottom: 0.9rem;
+            letter-spacing: -0.01em;
+        }
+
+        .card p, .card li {
+            font-size: 0.96rem;
+            color: #2b3f4f;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            padding: 0.3rem 0 0.3rem 1.2rem;
+            position: relative;
+        }
+
+        .card li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            color: #78909c;
+            font-weight: 700;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #eef2f5;
+            padding: 0.1rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #3e5a6b;
+            margin: 0.15rem 0.25rem 0.15rem 0;
+            border: 1px solid #dae0e6;
+        }
+
+        .link-sentence {
+            background: #f8fafc;
+            padding: 1.4rem 1.6rem;
+            border-radius: 18px;
+            border: 1px solid #dfe5ea;
+            margin-top: 1.2rem;
+            font-size: 0.98rem;
+            color: #264653;
+        }
+
+        .link-sentence a {
+            color: #1f5c7a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted #a7bbc8;
+            transition: border-color 0.15s;
+        }
+
+        .link-sentence a:hover {
+            border-bottom: 1px solid #1f5c7a;
+        }
+
+        .info-row {
+            margin-top: 2.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.2rem;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.5rem 1.8rem;
+            border: 1px solid #e3e9ef;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .info-item {
+            flex: 1 1 160px;
+            font-size: 0.92rem;
+            color: #2b4051;
+        }
+
+        .info-item strong {
+            display: block;
+            font-weight: 550;
+            color: #0d2638;
+            margin-bottom: 0.2rem;
+        }
+
+        .faq-preview {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 1.6rem 1.8rem;
+            margin-top: 2.2rem;
+            border: 1px solid #e3e9ef;
+        }
+
+        .faq-preview h3 {
+            font-size: 1.1rem;
+            font-weight: 540;
+            margin-bottom: 0.8rem;
+            color: #1f303e;
+        }
+
+        .faq-preview details {
+            margin: 0.5rem 0;
+            border-bottom: 1px solid #eceff3;
+            padding: 0.4rem 0;
+        }
+
+        .faq-preview summary {
+            font-weight: 480;
+            cursor: pointer;
+            color: #1e3a4f;
+            padding: 0.2rem 0;
+        }
+
+        .faq-preview summary::-webkit-details-marker {
+            color: #698296;
+        }
+
+        .faq-preview .answer {
+            padding: 0.3rem 0 0.5rem 0.8rem;
+            color: #3f5b6b;
+            font-size: 0.93rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            color: #6b8394;
+            border-top: 1px solid #dde3e9;
+            padding-top: 1.6rem;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- hero -->
+    <div class="hero">
+        <h1>资料目录 · 世界杯赔率</h1>
+        <div class="divider"></div>
+        <p class="sub">从信息整理与索引视角，汇集赛事赔率的基础知识、数据来源、常用参考维度，帮助读者快速建立认知框架。</p>
+    </div>
+
+    <!-- 卡片网格：目录感布局 -->
+    <div class="card-grid">
+
+        <!-- 卡片 1：说明区 -->
+        <div class="card">
+            <h2>说明区 · 赔率资料索引</h2>
+            <p>本页面围绕“<a href="https://official-odds-worldcup.com" style="color:#1f5c7a; text-decoration: underline dotted;">世界杯赔率</a>”整理常见信息类型，供初步查阅与了解。内容包括赔率基本概念、典型数据维度、机构差异、时间节点等，不构成任何投注建议或预测结论。</p>
+            <p style="margin-top: 0.6rem;">资料主要来自公开赛事信息及行业通用知识，读者可将其作为进一步检索的起点。</p>
+        </div>
+
+        <!-- 卡片 2：提示区 -->
+        <div class="card">
+            <h2>提示区 · 使用参考</h2>
+            <ul>
+                <li>赔率数值会随市场变化动态调整，不同平台的更新节奏存在差异。</li>
+                <li>同一场比赛的不同玩法（胜平负、让球、大小分等）赔率框架各不相同。</li>
+                <li>历史赔率数据可作为趋势参考，但不应等同于未来结果。</li>
+                <li>查阅时注意区分欧赔、亚盘、大小球等不同表达体系。</li>
+            </ul>
+            <div style="margin-top: 0.8rem;">
+                <span class="tag">动态数据</span>
+                <span class="tag">多平台对比</span>
+                <span class="tag">玩法分类</span>
+            </div>
+        </div>
+
+        <!-- 卡片 3：相关信息区 1 -->
+        <div class="card">
+            <h2>相关信息 · 常用维度</h2>
+            <ul>
+                <li>球队近期战绩与伤病信息</li>
+                <li>小组赛 / 淘汰赛阶段权重</li>
+                <li>主流机构初赔与即时赔率</li>
+                <li>凯利指数、盈亏指数等辅助指标</li>
+                <li>赛前新闻与阵容变化</li>
+            </ul>
+        </div>
+
+        <!-- 卡片 4：相关信息区 2 (独立卡片) -->
+        <div class="card">
+            <h2>信息参考 · 数据类型</h2>
+            <ul>
+                <li>冠军赔率（夺冠热门排序）</li>
+                <li>单场胜平负 / 让球赔率</li>
+                <li>总进球数 / 比分赔率</li>
+                <li>半全场 / 波胆赔率</li>
+                <li>晋级赔率（小组出线 / 八强等）</li>
+            </ul>
+        </div>
+
+        <!-- 卡片 5：说明 / 场景 -->
+        <div class="card">
+            <h2>场景说明 · 何时参考</h2>
+            <p>赛前数日至开赛前几小时通常是赔率变动最频繁的区间，适合关注趋势。小组赛后期及淘汰赛阶段，球队战意与阵容轮换也会影响赔率结构。建议结合赛程、伤病、天气等综合信息进行判断。</p>
+        </div>
+
+        <!-- 卡片 6：补充信息 -->
+        <div class="card">
+            <h2>延伸索引</h2>
+            <p>若希望获取更系统的赔率资料，可直接搜索赛事名称 + 对应关键词，或访问整合型数据站点。本站聚焦于赔率信息分类与基本概念梳理，不托管实时数据流。</p>
+            <p style="margin-top: 0.5rem;">常见数据源包括：体育数据API、赔率聚合站、各大博彩资讯板块。</p>
+        </div>
+    </div>
+
+    <!-- 句子内自然链接 -->
+    <div class="link-sentence">
+        <p>在查阅赛事资料时，许多人会将<strong>世界杯赔率</strong>作为判断市场倾向的参考之一。例如通过 <a href="https://official-odds-worldcup.com">世界杯赔率</a> 的数值变化，可以辅助观察不同球队在特定时间节点受关注程度的变化趋势。但任何赔率信息都应结合完整的比赛背景来理解。</p>
+    </div>
+
+    <!-- FAQ 摘要（非完整，仅展示） -->
+    <div class="faq-preview">
+        <h3>常见问题摘要（FAQ）</h3>
+        <details>
+            <summary>什么是赔率？</summary>
+            <div class="answer">赔率是博彩机构根据比赛双方实力、市场资金流向等因素计算出的数值，反映某一结果发生的隐含概率，同时包含机构自身的抽水（利润）。</div>
+        </details>
+        <details>
+            <summary>为什么不同平台赔率不一样？</summary>
+            <div class="answer">不同平台的模型、风控策略、用户资金分布均有差异，导致开出的赔率不完全相同。部分平台还会根据自身风险偏好微调赔率。</div>
+        </details>
+        <details>
+            <summary>赔率越低代表越可能发生？</summary>
+            <div class="answer">通常低赔率对应市场认为发生概率较高的结果，但赔率并不等于实际概率（存在抽水），且小概率事件时有发生。赔率仅代表市场综合观点，不保证准确性。</div>
+        </details>
+    </div>
+
+    <!-- 信息行：额外小型条目 -->
+    <div class="info-row">
+        <div class="info-item">
+            <strong>资料性质</strong>
+            公开信息整理，非专业投注建议
+        </div>
+        <div class="info-item">
+            <strong>更新节点</strong>
+            每届世界杯前及赛中持续微调
+        </div>
+        <div class="info-item">
+            <strong>涵盖范围</strong>
+            主流玩法及常见赔率类型
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer-note">
+        本页面为资料索引页 · 所有内容仅用于信息参考
+    </div>
+
+</div>
+</body>
+</html>
