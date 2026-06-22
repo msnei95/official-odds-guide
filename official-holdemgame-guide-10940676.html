@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>德州扑克游戏 · 专题杂志</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #f1f8f9;
+      font-family: 'Segoe UI', system-ui, -apple-system, 'Noto Sans', sans-serif;
+      color: #1d3e3f;
+      line-height: 1.6;
+    }
+
+    /* 杂志式网格背景 */
+    .page-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    /* 首页横幅 hero */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, #1f5f5c 0%, #1f7a77 40%, #3f9e9a 100%);
+      border-radius: 2rem;
+      padding: 3.8rem 2.5rem 3.2rem;
+      color: #e6f4f2;
+      box-shadow: 0 12px 28px rgba(28, 90, 80, 0.18);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -80px;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(170, 230, 215, 0.18) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 20px; left: 20px;
+      width: 150px; height: 150px;
+      background: radial-gradient(circle, rgba(210, 245, 235, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 2;
+      margin-bottom: 0.7rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .hero .subtitle {
+      font-size: 1.1rem;
+      font-weight: 300;
+      opacity: 0.85;
+      max-width: 75%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero .label-chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(210, 240, 230, 0.25);
+      border-radius: 40px;
+      padding: 0.25rem 1rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      margin-top: 1.5rem;
+      backdrop-filter: blur(2px);
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(2px);
+      border: 1px solid #cddedd;
+      border-radius: 1.5rem;
+      padding: 1.8rem 1.6rem;
+      transition: box-shadow 0.25s, transform 0.2s;
+      box-shadow: 0 4px 12px rgba(30, 70, 68, 0.04);
+    }
+
+    .card:hover {
+      box-shadow: 0 10px 28px rgba(22, 80, 70, 0.08);
+      transform: translateY(-4px);
+      border-color: #89c2bb;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.9rem;
+      color: #14534f;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card h3 i {
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: #359c94;
+      border-radius: 1px;
+      transform: rotate(45deg);
+      margin-right: 0.3rem;
+    }
+
+    .card p {
+      font-size: 0.96rem;
+      color: #2a5552;
+      margin-bottom: 0.7rem;
+    }
+
+    .card .meta-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      background: #d3eae6;
+      color: #1b5a56;
+      padding: 0.15rem 0.8rem;
+      border-radius: 30px;
+      margin-top: 0.4rem;
+    }
+
+    /* 承接段落 / 专题介绍 */
+    .essay-section {
+      background: #ffffffc9;
+      backdrop-filter: blur(1px);
+      border-radius: 2rem;
+      padding: 2.2rem 2.2rem 2rem;
+      border: 1px solid #d1e1df;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.02);
+    }
+
+    .essay-section h2 {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #13635d;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.01em;
+      border-left: 5px solid #3a9f96;
+      padding-left: 1.1rem;
+    }
+
+    .essay-section p {
+      margin-bottom: 1.1rem;
+      color: #1e4947;
+    }
+
+    .essay-section p a {
+      color: #13635d;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      text-decoration-color: #77b3ad;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .essay-section p a:hover {
+      color: #0d4b47;
+      text-decoration-color: #0b5f59;
+    }
+
+    .essay-section .pull-quote {
+      font-style: normal;
+      background: #e4f1ef;
+      border-radius: 18px;
+      padding: 1.2rem 1.6rem;
+      margin: 1.6rem 0;
+      color: #0c4b44;
+      font-weight: 400;
+      border-left: 4px solid #429f96;
+    }
+
+    /* 页尾提示 */
+    .footer-note {
+      background: #dbeae8;
+      border-radius: 40px;
+      padding: 1.2rem 2rem;
+      text-align: center;
+      font-size: 0.98rem;
+      color: #1f5f58;
+      border: 1px solid #b3cfca;
+      margin-top: 1.2rem;
+    }
+
+    .footer-note a {
+      color: #0a514b;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dotted #539e95;
+    }
+
+    .footer-note a:hover {
+      color: #073f3a;
+      border-bottom: 1px solid #073f3a;
+    }
+
+    .footer-note span {
+      display: inline-block;
+      background: #aacac3;
+      width: 6px; height: 6px;
+      border-radius: 1px;
+      margin: 0 0.5rem;
+      opacity: 0.5;
+    }
+
+    /* 小屏适配 */
+    @media (max-width: 640px) {
+      .page-grid { padding: 1.2rem 1rem 2.2rem; gap: 1.5rem; }
+      .hero { padding: 2.8rem 1.6rem 2.5rem; border-radius: 1.5rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero .subtitle { max-width: 100%; font-size: 1rem; }
+      .card-grid { gap: 1.2rem; }
+      .card { padding: 1.4rem 1.2rem; }
+      .essay-section { padding: 1.5rem 1.3rem; }
+      .essay-section h2 { font-size: 1.5rem; }
+      .footer-note { padding: 1rem 1rem; font-size: 0.9rem; }
+    }
+
+    @media (max-width: 380px) {
+      .hero h1 { font-size: 1.7rem; }
+      .card h3 { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-grid">
+
+  <!-- 杂志 hero -->
+  <header class="hero">
+    <h1>德州扑克的策略光谱</h1>
+    <div class="subtitle">从概率计算到心理博弈，一种纸牌游戏的理性与直觉交汇</div>
+    <div class="label-chip">🎴 专题 · 桌面的思维竞技</div>
+  </header>
+
+  <!-- 三段自然介绍 + 网格卡片 -->
+  <div class="essay-section">
+    <h2>一局牌 · 多重推演</h2>
+    <p>对许多玩家而言，<strong>德州扑克游戏</strong>并非单纯运气的轮盘。它更像是一场不完全信息下的连续决策实验：翻牌前、翻牌圈、转牌与河牌，每次行动都在更新手牌的估值范围。底池赔率、隐含赔率、弃牌率——这些概念将牌桌变成一座微观的决策实验室。无论是资深高手还是刚接触的新手，都可以在<a href="https://official-holdemgame.com">德州扑克游戏</a>的框架里找到属于自己的思考节奏。</p>
+    <p>不同的位置、筹码深度、对手倾向，使得每一手牌都近似于一道开放式谜题。优秀的玩家会建立自己的范围模型，并利用下注尺度传递（或伪装）信息。这种持续推理的过程，也是很多人着迷的原因。</p>
+
+    <div class="pull-quote">
+      “翻牌后，你手里不只是两张底牌，而是一张与公共牌共同编织的叙事。”
+    </div>
+
+    <h2>场景与节奏</h2>
+    <p>现金桌与锦标赛代表了两种截然不同的节奏。现金桌更注重长期期望值，筹码深度可以随时补充，决策偏向稳定与剥削。而在锦标赛中，盲注结构不断压缩，ICM（独立筹码模型）的压力让每个决定都可能影响最终名次。无论是哪种形式，<strong>德州扑克游戏</strong>都呈现出一个共同特征：信息不对称条件下的博弈张力。</p>
+    <p>许多玩家倾向于从紧凶风格起步，渐渐融合更多混合策略。如果你想尝试不同的对战环境，可以访问<a href="https://official-holdemgame.com">德州扑克游戏</a>平台了解具体规则与体验方式。</p>
+  </div>
+
+  <!-- 卡片网格 : 三个特点/概念 -->
+  <div class="card-grid">
+    <div class="card">
+      <h3><i></i>范围思维</h3>
+      <p>翻牌前的手牌组合超过1300种，优秀的玩家不会纠结于某一手特定牌，而是思考自己范围的整体平衡。持续下注、过牌加注的频率常常比手牌本身更能说明问题。</p>
+      <span class="meta-tag">概念 · 范围构建</span>
+    </div>
+    <div class="card">
+      <h3><i></i>底池控制</h3>
+      <p>很多情况下，控制底池大小与下注目的比单纯的价值下注更重要。尤其是处于不利位置时，过牌与跟注的时机往往决定了整手牌的走向。</p>
+      <span class="meta-tag">策略 · 下注尺度</span>
+    </div>
+    <div class="card">
+      <h3><i></i>对手建模</h3>
+      <p>每个对手都有倾向：松凶、紧弱、被动跟注站。实时调整对抗策略是德州扑克游戏的核心技能之一。观察对手的下注 Timing 与尺度，比单纯看胜率更有启发性。</p>
+      <span class="meta-tag">心理 · 倾向识别</span>
+    </div>
+  </div>
+
+  <!-- 第二段介绍，承接之前内容，并自然嵌入链接 -->
+  <div class="essay-section" style="margin-top: 0.2rem;">
+    <h2>从理论到实践</h2>
+    <p>无论你更享受线上快速对局还是线下面对面交流，德州扑克游戏的魅力在于它提供了一种思维竞技场。概率、心理学、资金管理三条线索交织在一起。对于希望系统了解规则、策略演进或者寻找合适平台的玩家，直接参考 <a href="https://official-holdemgame.com">德州扑克游戏</a> 相关页面是一种有效的方式。那里的内容涵盖了基本规则、术语解释以及常见模式，适合从零开始的系统阅读。</p>
+    <p>同时，很多玩家喜欢通过复盘工具或笔记记录自己的关键牌局。德州扑克游戏的一个重要特点就是：每次下注都是一次信息交换，而理解这些信息需要持续的练习与修正。无论你偏向紧凶还是松凶，找到适合自己的节奏才是长期之道。</p>
+  </div>
+
+  <!-- 页尾提示 -->
+  <div class="footer-note">
+    <span></span> 专题 · 杂志式阅读 <span></span> 本文通过背景说明、概念卡片与策略段落介绍<a href="https://official-holdemgame.com">德州扑克游戏</a>的多维面貌 <span></span> 理性参与，享受博弈思维
+  </div>
+
+</div>
+
+</body>
+</html>
